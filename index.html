@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Loyalty Rewards System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Factory Box Loyalty Rewards</h1>
+      <p class="subtitle">Claim rewards from your product box &amp; monitor loyalty activity</p>
+    </div>
+    <nav class="tabs" aria-label="Views">
+      <button id="customerTabBtn" class="tab-btn active" type="button">Customer Claim</button>
+      <button id="ownerTabBtn" class="tab-btn" type="button">Owner Monitor</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Customer View -->
+    <section id="customerView" class="panel active">
+      <div class="card">
+        <h2>Claim Your Box Reward</h2>
+        <p class="hint">Sample valid box codes for testing: <strong>BOX-1001</strong> (50 pts), <strong>BOX-1002</strong> (100 pts), <strong>BOX-1003</strong> (75 pts)</p>
+
+        <form id="claimForm" novalidate>
+          <div class="form-group">
+            <label for="customerName">Customer Name</label>
+            <input id="customerName" type="text" placeholder="Enter your full name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="customerContact">Email or Phone (for loyalty balance)</label>
+            <input id="customerContact" type="text" placeholder="e.g. name@example.com or 9876543210" required />
+          </div>
+
+          <div class="form-group">
+            <label for="boxCode">Box / Coupon Code (Format: BOX-XXXX)</label>
+            <input id="boxCode" type="text" placeholder="e.g. BOX-1001" maxlength="20" required />
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input id="consentCheck" type="checkbox" required />
+            <label for="consentCheck">I confirm I purchased this box and agree to loyalty terms &amp; fraud checks.</label>
+          </div>
+
+          <button type="submit" class="primary-btn">Claim Points</button>
+        </form>
+
+        <div id="claimStatus" class="status-box" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h3>Check Customer Points &amp; Claim History</h3>
+        <div class="lookup-row">
+          <input id="lookupInput" type="text" placeholder="Enter customer name, email, or phone" />
+          <button id="lookupBtn" type="button" class="secondary-btn">Check Balance</button>
+        </div>
+        <div id="lookupResult" class="lookup-result">Enter details above to view earned points and claimed boxes.</div>
+      </div>
+    </section>
+
+    <!-- Owner View -->
+    <section id="ownerView" class="panel">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span>Total Points Issued</span>
+          <strong id="statPointsIssued">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Codes Claimed</span>
+          <strong id="statCodesClaimed">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Available Box Codes</span>
+          <strong id="statCodesAvailable">0</strong>
+        </div>
+        <div class="stat-card">
+          <span>Blocked / Invalid Attempts</span>
+          <strong id="statBlockedAttempts">0</strong>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Generate New Valid Box Codes</h3>
+        <form id="generateCodeForm" class="inline-form">
+          <input id="newCodeInput" type="text" placeholder="e.g. BOX-2001" required />
+          <input id="newCodePoints" type="number" min="10" max="5000" step="5" value="50" required />
+          <button type="submit" class="primary-btn">Add Box Code</button>
+        </form>
+        <div class="code-list-wrap">
+          <h4>Active Unclaimed Codes</h4>
+          <ul id="availableCodesList" class="tag-list"></ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header-row">
+          <h3>Claim &amp; Fraud Audit Log</h3>
+          <button id="resetDemoBtn" type="button" class="danger-btn">Reset Demo Data</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Customer</th>
+                <th>Code</th>
+                <th>Status</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody id="auditTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
